@@ -66,6 +66,22 @@ For example, to inspect a project, open a terminal in that project directory, st
 
 Git operations that change repository state ask for confirmation. Review the destination branch/remote or staged diff before confirming. The toolkit does not offer force-push, reset, or branch deletion. Use menu option `0` in a submenu to return, or `9` in the main menu to exit.
 
+## Terminal colors
+
+The interface uses ANSI colors in supported interactive terminals, including Android Termux, Linux/macOS terminals, Windows Terminal, Codespaces, and IDX. Colors are automatically disabled when output is redirected or the terminal is non-interactive. Set `NO_COLOR` to disable colors explicitly:
+
+```sh
+NO_COLOR=1 python3 main.py
+```
+
+For example, piping output to a file or another command automatically uses plain text:
+
+```sh
+python3 main.py | tee session.log
+```
+
+No third-party color package is required.
+
 ## Tests
 
 From the cloned `dev-inspector` directory, run:
