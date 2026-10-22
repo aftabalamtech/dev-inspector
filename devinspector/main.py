@@ -8,6 +8,7 @@ from .cloudflare_ui import cloudflare_menu
 from .inspectors import cloudflare_details, git_details, inspect_project, node_details, python_details
 from .reporting import write_report
 from .ui import banner, menu_item, print_result, prompt_text, render, selection_menu
+from .update_ui import update_manager_menu
 
 
 def show(title: str, data: object) -> None:
@@ -103,7 +104,8 @@ def show_main_menu() -> None:
     print(menu_item("6", "Project Inspector"))
     print(menu_item("7", "Environment & PATH"))
     print(menu_item("8", "Diagnostic Report"))
-    print(menu_item("9", "Exit"))
+    print(menu_item("9", "Update Dev Inspector"))
+    print(menu_item("0", "Exit"))
 
 
 def main() -> None:
@@ -159,6 +161,8 @@ def main() -> None:
                 except (OSError, ValueError) as exc:
                     print_result(f"Report not written: {exc}", ok=False)
             elif choice == "9":
+                update_manager_menu()
+            elif choice == "0":
                 print_result("Goodbye.", ok=True)
                 return
             else:

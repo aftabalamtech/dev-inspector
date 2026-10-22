@@ -60,11 +60,34 @@ Start the program with one of the commands above. At the `Select:` prompt, enter
 | `6` | Inspect known project configuration files in the current directory. |
 | `7` | Show PATH entries and environment variables, redacting values for sensitive variable names. |
 | `8` | Write a local JSON and human-readable text diagnostic report. |
-| `9` | Exit. |
+| `9` | Open the self-update manager to check, inspect, and optionally apply a Git-based update. |
+| `0` | Exit. |
 
 For example, to inspect a project, open a terminal in that project directory, start the toolkit, and choose `6`. For a report, choose `8`, then enter a destination such as `./my-diagnostics.json`; the program writes that JSON file and a corresponding `./my-diagnostics.txt` file. Entering the default `./diagnostics-report.json` creates `diagnostics-report.json` and `diagnostics-report.txt` in the current directory. Existing report files are not overwritten; choose a new filename if prompted with a conflict.
 
-Git operations that change repository state ask for confirmation. Review the destination branch/remote or staged diff before confirming. The toolkit does not offer force-push, reset, or branch deletion. Use menu option `0` in a submenu to return, or `9` in the main menu to exit.
+Git operations that change repository state ask for confirmation. Review the destination branch/remote or staged diff before confirming. The toolkit does not offer force-push, reset, or branch deletion. Use menu option `0` in a submenu to return; `0` in the main menu exits.
+
+## Self-updating Dev Inspector
+
+Clone the repository once using the instructions above, then launch it normally. Choose main-menu option `9` to open **DEV INSPECTOR UPDATE MANAGER**:
+
+- `1` checks the verified upstream, shows pending commits and a diff summary, then asks before applying an update.
+- `2` checks for updates without changing application files (Git's remote-tracking metadata is refreshed).
+- `3` shows the installed version/commit, branch, and working-tree status from Git metadata.
+- `4` shows available upstream commits or recent local commit messages.
+- `0` returns to the main menu.
+
+Self-update is supported for a Git checkout whose configured branch upstream points to `https://github.com/aftabalamtech/dev-inspector` (HTTPS or GitHub SSH remotes are accepted). It requires Git, network access, and a configured upstream branch. The updater fetches only that branch, checks the repository identity and commit ancestry, and applies updates only as a fast-forward after confirmation. It refuses dirty working trees, local/upstream divergence, mismatched remotes, or unverifiable fetches. Fetch/merge hooks are disabled for the update operation, and Git is instructed not to overwrite ignored files. It never runs `git reset --hard` or `git clean`, stashes or discards changes, or installs dependencies; review and resolve local work yourself before retrying. Restart the application after a successful update.
+
+If you installed from a ZIP/archive or another non-Git copy, the built-in updater will explain that it cannot update that installation. Install a Git clone separately instead of cloning over or deleting the existing folder:
+
+```sh
+git clone https://github.com/aftabalamtech/dev-inspector.git
+cd dev-inspector
+python3 main.py
+```
+
+On Windows PowerShell, use `py main.py` from the newly cloned directory. Back up and manually carry over any personal files; the updater does not merge arbitrary files from archive installations.
 
 See [Cloudflare Toolkit usage, supported installation methods, safety behavior, and official documentation links](docs/cloudflare-toolkit.md) for details. Automatic `cloudflared` installation is deliberately unavailable on Termux/Android because Cloudflare's documented installation methods do not specify Termux support.
 
