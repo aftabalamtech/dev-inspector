@@ -4,6 +4,7 @@ import os
 from pathlib import Path
 
 from .core import detect_languages, detect_tools, run, system_info
+from .cloudflare_ui import cloudflare_menu
 from .inspectors import cloudflare_details, git_details, inspect_project, node_details, python_details
 from .reporting import write_report
 from .ui import banner, menu_item, print_result, prompt_text, render, selection_menu
@@ -127,7 +128,7 @@ def main() -> None:
                 show("Git & GitHub", git_details())
                 git_action()
             elif choice == "4":
-                show("Cloudflare Toolkit", cloudflare_details(Path.cwd()))
+                cloudflare_menu(Path.cwd())
             elif choice == "5":
                 show("Developer Tools", detect_tools())
             elif choice == "6":

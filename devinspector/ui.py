@@ -114,6 +114,8 @@ def _value_color(key: str, value: object) -> str:
 def _format_value(key: str, value: object, *, stream: TextIO | None = None) -> str:
     if value is None:
         value = "unavailable"
+    if key.lower() == "installed" and isinstance(value, bool):
+        value = "[INSTALLED]" if value else "[NOT FOUND]"
     if key.lower() == "status":
         lowered = str(value).lower()
         if lowered == "installed":

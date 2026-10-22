@@ -46,9 +46,9 @@ def git_details(cwd: str | None = None) -> dict:
     return result
 
 def cloudflare_details(cwd: Path) -> dict:
-    r=run(['wrangler','--version'],cwd=str(cwd))
+    from .cloudflare_tools import detect_cloudflare_tools
     configs=[p.name for p in cwd.iterdir() if p.name in ('wrangler.toml','wrangler.json','wrangler.jsonc')]
-    return {"wrangler":r.stdout if r.returncode==0 else (r.error or 'unavailable'),"config_files":configs,"live_account_verified":False}
+    return {"tools":detect_cloudflare_tools(cwd),"config_files":configs,"live_account_verified":False}
 
 def inspect_project(cwd: Path) -> dict:
     known={'package.json','pyproject.toml','requirements.txt','Pipfile','poetry.lock','uv.lock','Cargo.toml','go.mod','pom.xml','build.gradle','Dockerfile','docker-compose.yml','compose.yaml','wrangler.toml','wrangler.json','wrangler.jsonc','.gitignore','.env.example'}

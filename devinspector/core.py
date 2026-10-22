@@ -55,7 +55,7 @@ LANGUAGES = {
  '.NET':[('dotnet',['--version'])], 'C/C++':[('cc',['--version']),('c++',['--version'])],
  'Kotlin':[('kotlinc',['-version'])], 'Swift':[('swift',['--version'])], 'Dart':[('dart',['--version'])],
  'R':[('R',['--version'])], 'Perl':[('perl',['--version'])]}
-TOOLS = ['git','gh','docker','podman','npm','pnpm','yarn','bun','pipx','poetry','uv','conda','make','cmake','ninja','ssh','curl','wget','jq','terraform','wrangler','psql','mysql','redis-cli','aws','az','gcloud']
+TOOLS = ['git','gh','docker','podman','npm','pnpm','yarn','bun','pipx','poetry','uv','conda','make','cmake','ninja','ssh','curl','wget','jq','terraform','cf','cloudflare','wrangler','cloudflared','psql','mysql','redis-cli','aws','az','gcloud']
 
 def detect_languages() -> dict:
     found={}
